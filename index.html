@@ -37,7 +37,7 @@ button {
   cursor:pointer;
 }
 
-#noBtn, #yesBtn, #noBtn2 { z-index:1000; }
+#noBtn, #yesBtn { z-index:1000; }
 
 img {
   width:230px;
@@ -68,6 +68,14 @@ canvas {
   justify-content:center;
   gap:20px;
 }
+
+#responseMessage {
+  margin-top:15px;
+  font-size:20px;
+  color:#ffeb3b;
+  opacity:0;
+  transition: opacity 1s ease;
+}
 </style>
 </head>
 
@@ -81,11 +89,11 @@ canvas {
     <button id="noBtn" onmouseover="moveNo()">No &#128533;</button>
   </div>
 
-  <!-- Yes/No buttons always visible -->
   <div id="questionButtons">
     <button id="yesBtn" onclick="yesClicked()">Yes &#128150;</button>
     <button id="noBtn2" onclick="noClicked()">No &#128546;</button>
   </div>
+  <div id="responseMessage"></div>
 </div>
 
 <div class="container" id="final" style="display:none;">
@@ -96,7 +104,6 @@ canvas {
   </h1>
 </div>
 
-<!-- Music -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8f1b36c.mp3" type="audio/mpeg">
 </audio>
@@ -144,13 +151,13 @@ let lines = [
 "do you feel the same? &#128151;"
 ];
 
-// ==================== LOCAL IMAGES ====================
+// ==================== IMAGES (placeholders) ====================
 let images = [
-"images/img1.jpg",
-"images/img2.jpg",
-"images/img3.jpg",
-"images/img4.jpg",
-"images/img5.jpg"
+"https://via.placeholder.com/230x230/ff9a9e/ffffff?text=Love1",
+"https://via.placeholder.com/230x230/fad0c4/ffffff?text=Love2",
+"https://via.placeholder.com/230x230/ff9a9e/ffffff?text=Love3",
+"https://via.placeholder.com/230x230/fad0c4/ffffff?text=Love4",
+"https://via.placeholder.com/230x230/ff9a9e/ffffff?text=Love5"
 ];
 
 // ==================== TYPING EFFECT ====================
@@ -169,13 +176,13 @@ function next(){
   if(step<lines.length){
     typeText(lines[step]);
 
-    // Show image if available
     let img=document.getElementById("photo");
     if(step<images.length){
       img.src=images[step];
       img.style.display="block";
     }
 
+    hideResponse(); // hide previous response
     step++;
   } else {
     document.getElementById("main").style.display="none";
@@ -194,10 +201,24 @@ function moveNo(){
 
 // ==================== YES / NO BUTTONS ====================
 function yesClicked(){
-  alert("Yay! &#128150; I'm so happy!");
+  showResponse("Yay! &#128150; I'm so happy!");
 }
+
 function noClicked(){
-  alert("Oh no… &#128546; I hope you change your mind!");
+  showResponse("Oh no… &#128546; I hope you change your mind!");
+}
+
+function showResponse(message){
+  let response=document.getElementById("responseMessage");
+  response.innerHTML = message;
+  response.style.opacity = "1";
+  // fade out after 2 seconds
+  setTimeout(()=>{ response.style.opacity="0"; },2000);
+}
+
+function hideResponse(){
+  let response=document.getElementById("responseMessage");
+  response.style.opacity="0";
 }
 
 // ==================== FIREWORKS ====================
