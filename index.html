@@ -332,8 +332,8 @@ canvas {
   <div class="note" id="note"></div>
 
   <div>
-    <button onclick="next()">okay 💕</button>
-    <button id="noBtn" onmouseover="moveNo()">no 😒</button>
+    <button onclick="sayYes()">Yes ❤️</button>
+<button onclick="sayNo()">No 💔</button>
   </div>
 </div>
 
@@ -465,5 +465,21 @@ function startFireworks(){
 
 </script>
 
-</body>
+<script>
+function sayYes() {
+    alert("Awwww Priyuu ❤️ I knew it! I love you sooo much 😘💖");
+    document.body.style.background = "black";
+
+    let msg = document.createElement("h1");
+    msg.innerHTML = "💖 You are mine forever Priyuu 💖";
+    msg.style.color = "pink";
+    msg.style.textAlign = "center";
+    msg.style.marginTop = "20px";
+    document.body.appendChild(msg);
+}
+
+function sayNo() {
+    alert("No option 😏 You still love me ❤️");
+}
+</script></body>
 </html>
