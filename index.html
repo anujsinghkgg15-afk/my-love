@@ -32,7 +32,7 @@ button {
   z-index:1000;
   position:relative;
 }
-#noBtn { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
+#noBtnMove { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
 #questionButtons { margin-top:20px; display:flex; justify-content:center; gap:20px;}
 #responseMessage {
   margin-top:15px;
@@ -61,12 +61,12 @@ canvas { position:fixed; top:0; left:0; pointer-events:none; z-index:0;}
   <img id="photo">
   <div>
     <button onclick="next()">Start &#128149;</button>
-    <button id="noBtn" onmouseover="moveNo()">No &#128546;</button>
+    <button id="noBtnMove" onmouseover="moveNo()">No &#128542;</button>
   </div>
 
   <div id="questionButtons">
     <button id="yesBtn" onclick="yesClicked()">Yes &#128150;</button>
-    <button id="noBtn2" onclick="noClicked()">No &#128546;</button>
+    <button id="noBtn2" onclick="noClicked()">No &#128542;</button>
   </div>
 
   <div id="responseMessage"></div>
@@ -126,12 +126,14 @@ let lines = [
 "do you feel the same? &#128151;"
 ];
 
+// ---------------- IMAGES ----------------
+// Replace these URLs with your GitHub-hosted images if needed
 let images = [
-"https://via.placeholder.com/230x230/ff9a9e/ffffff?text=Love1",
-"https://via.placeholder.com/230x230/fad0c4/ffffff?text=Love2",
-"https://via.placeholder.com/230x230/ff9a9e/ffffff?text=Love3",
-"https://via.placeholder.com/230x230/fad0c4/ffffff?text=Love4",
-"https://via.placeholder.com/230x230/ff9a9e/ffffff?text=Love5"
+"https://your-github-username.github.io/my-love/images/img1.jpg",
+"https://your-github-username.github.io/my-love/images/img2.jpg",
+"https://your-github-username.github.io/my-love/images/img3.jpg",
+"https://your-github-username.github.io/my-love/images/img4.jpg",
+"https://your-github-username.github.io/my-love/images/img5.jpg"
 ];
 
 // ---------------- TYPING EFFECT ----------------
@@ -164,9 +166,9 @@ function next(){
   }
 }
 
-// ---------------- NO BUTTON ----------------
+// ---------------- MOVING NO BUTTON ----------------
 function moveNo(){
-  let btn=document.getElementById("noBtn");
+  let btn=document.getElementById("noBtnMove");
   btn.style.left=Math.random()*(window.innerWidth-btn.offsetWidth)+"px";
   btn.style.top=Math.random()*(window.innerHeight-btn.offsetHeight)+"px";
 }
