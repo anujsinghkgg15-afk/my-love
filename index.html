@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-  height:100vh;
+  min-height:100vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -37,7 +37,7 @@ button {
   cursor:pointer;
 }
 
-#noBtn, #yesBtn { position:absolute; z-index:1000; }
+#noBtn, #yesBtn, #noBtn2 { z-index:1000; }
 
 img {
   width:230px;
@@ -61,33 +61,42 @@ canvas {
 }
 
 .heart { position:absolute; font-size:20px; }
+
+#questionButtons {
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container" id="main">
-  <h1 id="text">Tap start 💖</h1>
+  <h1 id="text">Tap start &#128150;</h1>
   <img id="photo">
   <div>
-    <button onclick="next()">Start 💕</button>
-    <button id="noBtn" onmouseover="moveNo()">No 😒</button>
+    <button onclick="next()">Start &#128149;</button>
+    <button id="noBtn" onmouseover="moveNo()">No &#128533;</button>
+  </div>
+
+  <!-- Yes/No buttons in question session -->
+  <div id="questionButtons" style="display:none;">
+    <button id="yesBtn" onclick="yesClicked()">Yes &#128150;</button>
+    <button id="noBtn2" onclick="noClicked()">No &#128546;</button>
   </div>
 </div>
 
 <div class="container" id="final" style="display:none;">
   <h1 class="glow">
-    you became really special to me… 💖<br><br>
-    <b>priyuu</b> 🫶<br><br>
+    you became really special to me… &#128150;<br><br>
+    <b>priyuu</b> &#129339;<br><br>
     love u… always.
   </h1>
-  <div style="margin-top:20px;">
-    <button id="yesBtn" onclick="yesClicked()">Yes 💖</button>
-    <button id="noBtn2" onclick="noClicked()">No 😢</button>
-  </div>
 </div>
 
-<!-- Music from online link -->
+<!-- Music -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8f1b36c.mp3" type="audio/mpeg">
 </audio>
@@ -99,40 +108,40 @@ canvas {
 let step = 0;
 
 let lines = [
-"hey…",
-"wait a second 💭",
-"don’t skip this… please",
-"i really wanted to tell you something",
-"but never said it properly",
-"so today… i’m trying",
-"you know…",
-"talking to you feels different",
-"not forced… not fake… just real",
-"it feels calm… comfortable… peaceful",
-"and slowly…",
-"you became someone important to me 💖",
-"i don’t even know when it happened",
-"but it did…",
-"your smile…",
-"yeah… that’s my favorite thing 🫶",
-"and your voice…",
-"it stays in my mind sometimes",
-"and your presence…",
-"it makes everything better",
-"so tell me honestly…",
-"do you enjoy talking to me? 😊",
-"do you ever wait for my message? 💭",
-"do i come to your mind randomly?",
-"do you smile when you see my name? 🫶",
-"do you miss me… even a little?",
-"do you feel comfortable with me?",
-"do you trust me?",
-"do you feel something… even a little?",
-"because honestly…",
-"i do…",
-"a lot more than i expected 💖",
+"hey… &#128524;",
+"wait a second &#128524;",
+"don’t skip this… please &#129303;",
+"i really wanted to tell you something &#129315;",
+"but never said it properly &#128533;",
+"so today… i’m trying &#128150;",
+"you know… &#129300;",
+"talking to you feels different &#128522;",
+"not forced… not fake… just real &#128151;",
+"it feels calm… comfortable… peaceful &#129499;&#127997;",
+"and slowly… &#127793;",
+"you became someone important to me &#128150;",
+"i don’t even know when it happened &#128523;",
+"but it did… &#129392;",
+"your smile… &#128525;",
+"yeah… that’s my favorite thing &#129339;",
+"and your voice… &#127926;",
+"it stays in my mind sometimes &#128524;",
+"and your presence… &#10024;",
+"it makes everything better &#128150;",
+"so tell me honestly… &#129300;",
+"do you enjoy talking to me? &#128522;",
+"do you ever wait for my message? &#128140;",
+"do i come to your mind randomly? &#129315;",
+"do you smile when you see my name? &#129339;",
+"do you miss me… even a little? &#128546;",
+"do you feel comfortable with me? &#129303;",
+"do you trust me? &#128150;",
+"do you feel something… even a little? &#128151;",
+"because honestly… &#129339;",
+"i do… &#128525;",
+"a lot more than i expected &#128150;",
 "so tell me one last thing…",
-"do you feel the same? 💗"
+"do you feel the same? &#128151;"
 ];
 
 // ==================== LOCAL IMAGES ====================
@@ -159,11 +168,17 @@ function next(){
   document.getElementById("music").play().catch(()=>{});
   if(step<lines.length){
     typeText(lines[step]);
+
+    // Show image if available
     let img=document.getElementById("photo");
     if(step<images.length){
       img.src=images[step];
       img.style.display="block";
     }
+
+    // Show Yes/No buttons on last few questions
+    if(step>=27) document.getElementById("questionButtons").style.display="flex";
+
     step++;
   } else {
     document.getElementById("main").style.display="none";
@@ -180,12 +195,12 @@ function moveNo(){
   btn.style.top=Math.random()*(window.innerHeight-btn.offsetHeight)+"px";
 }
 
-// ==================== FINAL YES/NO BUTTONS ====================
+// ==================== YES / NO BUTTONS ====================
 function yesClicked(){
-  alert("Yay! 💖 I'm so happy!");
+  alert("Yay! &#128150; I'm so happy!");
 }
 function noClicked(){
-  alert("Oh no… 😢 I hope you change your mind!");
+  alert("Oh no… &#128546; I hope you change your mind!");
 }
 
 // ==================== FIREWORKS ====================
@@ -217,7 +232,7 @@ function startFireworks(){ setInterval(fire,400); update(); }
 function startHearts(){
   setInterval(()=>{
     let heart=document.createElement("div");
-    heart.innerHTML="💖";
+    heart.innerHTML="&#128150;";
     heart.className="heart";
     heart.style.left=Math.random()*100+"vw";
     heart.style.top="100vh";
