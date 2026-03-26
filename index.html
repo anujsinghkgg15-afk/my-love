@@ -81,8 +81,8 @@ canvas {
     <button id="noBtn" onmouseover="moveNo()">No &#128533;</button>
   </div>
 
-  <!-- Yes/No buttons in question session -->
-  <div id="questionButtons" style="display:none;">
+  <!-- Yes/No buttons always visible -->
+  <div id="questionButtons">
     <button id="yesBtn" onclick="yesClicked()">Yes &#128150;</button>
     <button id="noBtn2" onclick="noClicked()">No &#128546;</button>
   </div>
@@ -175,9 +175,6 @@ function next(){
       img.src=images[step];
       img.style.display="block";
     }
-
-    // Show Yes/No buttons on last few questions
-    if(step>=27) document.getElementById("questionButtons").style.display="flex";
 
     step++;
   } else {
