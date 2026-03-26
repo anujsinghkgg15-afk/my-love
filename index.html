@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- updated -->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -35,10 +34,14 @@ button {
   border-radius:20px;
   background:white;
   color:#ff4d6d;
+  z-index:1000;
+  position:relative;
+  cursor:pointer;
 }
 
 #noBtn {
   position:absolute;
+  z-index:1000;
 }
 
 img {
@@ -58,6 +61,8 @@ canvas {
   position:fixed;
   top:0;
   left:0;
+  pointer-events:none; /* fix: allows clicks through canvas */
+  z-index:0; /* behind buttons */
 }
 
 .heart {
@@ -88,12 +93,13 @@ canvas {
 </div>
 
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8f1b36c.mp3">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8f1b36c.mp3" type="audio/mpeg">
 </audio>
 
 <canvas id="fireworks"></canvas>
 
 <script>
+window.onload = function(){
 
 let step = 0;
 
@@ -135,11 +141,11 @@ let lines = [
 ];
 
 let images = [
-"img1.jpg",
-"img2.jpg",
-"img3.jpg",
-"img4.jpg",
-"img5.jpg"
+"https://i.postimg.cc/7Zs6tP2F/cute1.png",
+"https://i.postimg.cc/dQ1wgh2s/cute2.png",
+"https://i.postimg.cc/7Zs6tP2F/cute3.png",
+"https://i.postimg.cc/dQ1wgh2s/cute4.png",
+"https://i.postimg.cc/7Zs6tP2F/cute5.png"
 ];
 
 // ✨ typing effect
@@ -154,7 +160,7 @@ function typeText(text, i = 0) {
 }
 
 // main flow
-function next(){
+window.next = function(){
   document.getElementById("music").play().catch(()=>{});
 
   if(step < lines.length){
@@ -176,10 +182,10 @@ function next(){
 }
 
 // no button
-function moveNo(){
+window.moveNo = function(){
   let btn = document.getElementById("noBtn");
-  btn.style.left = Math.random()*window.innerWidth+"px";
-  btn.style.top = Math.random()*window.innerHeight+"px";
+  btn.style.left = Math.random()*(window.innerWidth - btn.offsetWidth)+"px";
+  btn.style.top = Math.random()*(window.innerHeight - btn.offsetHeight)+"px";
 }
 
 // fireworks
@@ -238,6 +244,7 @@ function startHearts(){
   },300);
 }
 
+} // window.onload
 </script>
 
 </body>
