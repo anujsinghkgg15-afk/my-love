@@ -37,7 +37,7 @@ button {
   cursor:pointer;
 }
 
-#noBtn { position:absolute; z-index:1000; }
+#noBtn, #yesBtn { position:absolute; z-index:1000; }
 
 img {
   width:230px;
@@ -81,9 +81,13 @@ canvas {
     <b>priyuu</b> 🫶<br><br>
     love u… always.
   </h1>
+  <div style="margin-top:20px;">
+    <button id="yesBtn" onclick="yesClicked()">Yes 💖</button>
+    <button id="noBtn2" onclick="noClicked()">No 😢</button>
+  </div>
 </div>
 
-<!-- Music from online link, no download needed -->
+<!-- Music from online link -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8f1b36c.mp3" type="audio/mpeg">
 </audio>
@@ -176,6 +180,14 @@ function moveNo(){
   btn.style.top=Math.random()*(window.innerHeight-btn.offsetHeight)+"px";
 }
 
+// ==================== FINAL YES/NO BUTTONS ====================
+function yesClicked(){
+  alert("Yay! 💖 I'm so happy!");
+}
+function noClicked(){
+  alert("Oh no… 😢 I hope you change your mind!");
+}
+
 // ==================== FIREWORKS ====================
 const canvas=document.getElementById("fireworks");
 const ctx=canvas.getContext("2d");
@@ -192,9 +204,7 @@ function fire(){
 function update(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach((p,i)=>{
-    p.x+=p.dx;
-    p.y+=p.dy;
-    p.life--;
+    p.x+=p.dx; p.y+=p.dy; p.life--;
     ctx.fillStyle="white";
     ctx.fillRect(p.x,p.y,2,2);
     if(p.life<=0) particles.splice(i,1);
