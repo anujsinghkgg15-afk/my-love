@@ -22,9 +22,7 @@ body {
   align-items:center;
 }
 
-h1 {
-  max-width:340px;
-}
+h1 { max-width:340px; }
 
 button {
   padding:12px 20px;
@@ -39,10 +37,7 @@ button {
   cursor:pointer;
 }
 
-#noBtn {
-  position:absolute;
-  z-index:1000;
-}
+#noBtn { position:absolute; z-index:1000; }
 
 img {
   width:230px;
@@ -61,14 +56,11 @@ canvas {
   position:fixed;
   top:0;
   left:0;
-  pointer-events:none; /* fix: allows clicks through canvas */
-  z-index:0; /* behind buttons */
+  pointer-events:none;
+  z-index:0;
 }
 
-.heart {
-  position:absolute;
-  font-size:20px;
-}
+.heart { position:absolute; font-size:20px; }
 </style>
 </head>
 
@@ -77,7 +69,6 @@ canvas {
 <div class="container" id="main">
   <h1 id="text">Tap start 💖</h1>
   <img id="photo">
-
   <div>
     <button onclick="next()">Start 💕</button>
     <button id="noBtn" onmouseover="moveNo()">No 😒</button>
@@ -92,6 +83,7 @@ canvas {
   </h1>
 </div>
 
+<!-- Music from online link, no download needed -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8f1b36c.mp3" type="audio/mpeg">
 </audio>
@@ -99,8 +91,7 @@ canvas {
 <canvas id="fireworks"></canvas>
 
 <script>
-window.onload = function(){
-
+// ==================== VARIABLES ====================
 let step = 0;
 
 let lines = [
@@ -140,38 +131,35 @@ let lines = [
 "do you feel the same? 💗"
 ];
 
+// ==================== LOCAL IMAGES ====================
 let images = [
-"https://i.postimg.cc/7Zs6tP2F/cute1.png",
-"https://i.postimg.cc/dQ1wgh2s/cute2.png",
-"https://i.postimg.cc/7Zs6tP2F/cute3.png",
-"https://i.postimg.cc/dQ1wgh2s/cute4.png",
-"https://i.postimg.cc/7Zs6tP2F/cute5.png"
+"images/img1.jpg",
+"images/img2.jpg",
+"images/img3.jpg",
+"images/img4.jpg",
+"images/img5.jpg"
 ];
 
-// ✨ typing effect
-function typeText(text, i = 0) {
-  let el = document.getElementById("text");
-  if (i === 0) el.innerHTML = "";
-
-  if (i < text.length) {
-    el.innerHTML += text.charAt(i);
-    setTimeout(() => typeText(text, i + 1), 35);
+// ==================== TYPING EFFECT ====================
+function typeText(text,i=0){
+  let el=document.getElementById("text");
+  if(i===0) el.innerHTML="";
+  if(i<text.length){
+    el.innerHTML+=text.charAt(i);
+    setTimeout(()=>typeText(text,i+1),35);
   }
 }
 
-// main flow
-window.next = function(){
+// ==================== MAIN FLOW ====================
+function next(){
   document.getElementById("music").play().catch(()=>{});
-
-  if(step < lines.length){
+  if(step<lines.length){
     typeText(lines[step]);
-
-    let img = document.getElementById("photo");
-    if(step < images.length){
-      img.src = images[step];
-      img.style.display = "block";
+    let img=document.getElementById("photo");
+    if(step<images.length){
+      img.src=images[step];
+      img.style.display="block";
     }
-
     step++;
   } else {
     document.getElementById("main").style.display="none";
@@ -181,30 +169,26 @@ window.next = function(){
   }
 }
 
-// no button
-window.moveNo = function(){
-  let btn = document.getElementById("noBtn");
-  btn.style.left = Math.random()*(window.innerWidth - btn.offsetWidth)+"px";
-  btn.style.top = Math.random()*(window.innerHeight - btn.offsetHeight)+"px";
+// ==================== NO BUTTON ====================
+function moveNo(){
+  let btn=document.getElementById("noBtn");
+  btn.style.left=Math.random()*(window.innerWidth-btn.offsetWidth)+"px";
+  btn.style.top=Math.random()*(window.innerHeight-btn.offsetHeight)+"px";
 }
 
-// fireworks
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
+// ==================== FIREWORKS ====================
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let particles=[];
 function fire(){
-  let x = Math.random()*canvas.width;
-  let y = Math.random()*canvas.height/2;
-
+  let x=Math.random()*canvas.width;
+  let y=Math.random()*canvas.height/2;
   for(let i=0;i<40;i++){
     particles.push({x,y,dx:(Math.random()-0.5)*6,dy:(Math.random()-0.5)*6,life:100});
   }
 }
-
 function update(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach((p,i)=>{
@@ -217,13 +201,9 @@ function update(){
   });
   requestAnimationFrame(update);
 }
+function startFireworks(){ setInterval(fire,400); update(); }
 
-function startFireworks(){
-  setInterval(fire,400);
-  update();
-}
-
-// hearts
+// ==================== HEARTS ====================
 function startHearts(){
   setInterval(()=>{
     let heart=document.createElement("div");
@@ -232,19 +212,12 @@ function startHearts(){
     heart.style.left=Math.random()*100+"vw";
     heart.style.top="100vh";
     document.body.appendChild(heart);
-
     let move=setInterval(()=>{
       heart.style.top=(heart.offsetTop-2)+"px";
-      if(heart.offsetTop<0){
-        heart.remove();
-        clearInterval(move);
-      }
+      if(heart.offsetTop<0){ heart.remove(); clearInterval(move); }
     },20);
-
   },300);
 }
-
-} // window.onload
 </script>
 
 </body>
