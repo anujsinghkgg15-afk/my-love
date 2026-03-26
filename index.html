@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>For Priyuu 💖</title>
-
 <style>
 body {
   margin:0;
@@ -13,7 +12,6 @@ body {
   color:white;
   overflow:hidden;
 }
-
 .container {
   min-height:100vh;
   display:flex;
@@ -21,9 +19,7 @@ body {
   justify-content:center;
   align-items:center;
 }
-
 h1 { max-width:340px; }
-
 button {
   padding:12px 20px;
   margin:10px;
@@ -32,43 +28,12 @@ button {
   border-radius:20px;
   background:white;
   color:#ff4d6d;
+  cursor:pointer;
   z-index:1000;
   position:relative;
-  cursor:pointer;
 }
-
-#noBtn, #yesBtn { z-index:1000; }
-
-img {
-  width:230px;
-  border-radius:15px;
-  margin-top:15px;
-  display:none;
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
-}
-
-.glow {
-  font-size:24px;
-  text-shadow:0 0 10px #fff,0 0 25px #ff4d6d;
-}
-
-canvas {
-  position:fixed;
-  top:0;
-  left:0;
-  pointer-events:none;
-  z-index:0;
-}
-
-.heart { position:absolute; font-size:20px; }
-
-#questionButtons {
-  margin-top:20px;
-  display:flex;
-  justify-content:center;
-  gap:20px;
-}
-
+#noBtn { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
+#questionButtons { margin-top:20px; display:flex; justify-content:center; gap:20px;}
 #responseMessage {
   margin-top:15px;
   font-size:20px;
@@ -76,6 +41,16 @@ canvas {
   opacity:0;
   transition: opacity 1s ease;
 }
+img {
+  width:230px;
+  border-radius:15px;
+  margin-top:15px;
+  display:none;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+.glow { font-size:24px; text-shadow:0 0 10px #fff,0 0 25px #ff4d6d; }
+canvas { position:fixed; top:0; left:0; pointer-events:none; z-index:0;}
+.heart { position:absolute; font-size:20px; }
 </style>
 </head>
 
@@ -86,13 +61,14 @@ canvas {
   <img id="photo">
   <div>
     <button onclick="next()">Start &#128149;</button>
-    <button id="noBtn" onmouseover="moveNo()">No &#128533;</button>
+    <button id="noBtn" onmouseover="moveNo()">No &#128546;</button>
   </div>
 
   <div id="questionButtons">
     <button id="yesBtn" onclick="yesClicked()">Yes &#128150;</button>
     <button id="noBtn2" onclick="noClicked()">No &#128546;</button>
   </div>
+
   <div id="responseMessage"></div>
 </div>
 
@@ -111,15 +87,14 @@ canvas {
 <canvas id="fireworks"></canvas>
 
 <script>
-// ==================== VARIABLES ====================
+// ---------------- VARIABLES ----------------
 let step = 0;
-
 let lines = [
 "hey… &#128524;",
 "wait a second &#128524;",
 "don’t skip this… please &#129303;",
 "i really wanted to tell you something &#129315;",
-"but never said it properly &#128533;",
+"but never said it properly &#128546;",
 "so today… i’m trying &#128150;",
 "you know… &#129300;",
 "talking to you feels different &#128522;",
@@ -151,7 +126,6 @@ let lines = [
 "do you feel the same? &#128151;"
 ];
 
-// ==================== IMAGES (placeholders) ====================
 let images = [
 "https://via.placeholder.com/230x230/ff9a9e/ffffff?text=Love1",
 "https://via.placeholder.com/230x230/fad0c4/ffffff?text=Love2",
@@ -160,7 +134,7 @@ let images = [
 "https://via.placeholder.com/230x230/ff9a9e/ffffff?text=Love5"
 ];
 
-// ==================== TYPING EFFECT ====================
+// ---------------- TYPING EFFECT ----------------
 function typeText(text,i=0){
   let el=document.getElementById("text");
   if(i===0) el.innerHTML="";
@@ -170,19 +144,17 @@ function typeText(text,i=0){
   }
 }
 
-// ==================== MAIN FLOW ====================
+// ---------------- MAIN FLOW ----------------
 function next(){
   document.getElementById("music").play().catch(()=>{});
   if(step<lines.length){
     typeText(lines[step]);
-
     let img=document.getElementById("photo");
     if(step<images.length){
       img.src=images[step];
       img.style.display="block";
     }
-
-    hideResponse(); // hide previous response
+    hideResponse();
     step++;
   } else {
     document.getElementById("main").style.display="none";
@@ -192,36 +164,28 @@ function next(){
   }
 }
 
-// ==================== NO BUTTON ====================
+// ---------------- NO BUTTON ----------------
 function moveNo(){
   let btn=document.getElementById("noBtn");
   btn.style.left=Math.random()*(window.innerWidth-btn.offsetWidth)+"px";
   btn.style.top=Math.random()*(window.innerHeight-btn.offsetHeight)+"px";
 }
 
-// ==================== YES / NO BUTTONS ====================
-function yesClicked(){
-  showResponse("Yay! &#128150; I'm so happy!");
-}
-
-function noClicked(){
-  showResponse("Oh no… &#128546; I hope you change your mind!");
-}
+// ---------------- YES / NO BUTTONS ----------------
+function yesClicked(){ showResponse("Yay! &#128150; I'm so happy!"); }
+function noClicked(){ showResponse("Oh no… &#128546; I hope you change your mind!"); }
 
 function showResponse(message){
   let response=document.getElementById("responseMessage");
   response.innerHTML = message;
-  response.style.opacity = "1";
-  // fade out after 2 seconds
+  response.style.opacity="1";
   setTimeout(()=>{ response.style.opacity="0"; },2000);
 }
-
 function hideResponse(){
-  let response=document.getElementById("responseMessage");
-  response.style.opacity="0";
+  document.getElementById("responseMessage").style.opacity="0";
 }
 
-// ==================== FIREWORKS ====================
+// ---------------- FIREWORKS ----------------
 const canvas=document.getElementById("fireworks");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
@@ -246,7 +210,7 @@ function update(){
 }
 function startFireworks(){ setInterval(fire,400); update(); }
 
-// ==================== HEARTS ====================
+// ---------------- HEARTS ----------------
 function startHearts(){
   setInterval(()=>{
     let heart=document.createElement("div");
@@ -257,11 +221,10 @@ function startHearts(){
     document.body.appendChild(heart);
     let move=setInterval(()=>{
       heart.style.top=(heart.offsetTop-2)+"px";
-      if(heart.offsetTop<0){ heart.remove(); clearInterval(move); }
+      if(heart.offsetTop<0){ heart.remove(); clearInterval(move);}
     },20);
   },300);
 }
 </script>
-
 </body>
 </html>
